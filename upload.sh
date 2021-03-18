@@ -31,6 +31,17 @@ if [ -z "$RSYNC_USER" ]; then
     fi
 fi
 
+# 支持ssh_key
+# SSH_KEY_FILE=$RSYNC_SSH_KEY
+if [ "$RSYNC_SSH_KEY" ]; then
+    if [ ! -d $RSYNC_SSH_KEY ];then
+         echo "SSH KEY NOT FOUND"
+         exit 1
+    else
+    RSYNC_KEY=$(cat ${RSYNC_SSH_KEY})
+    fi
+fi
+
 SSH_KEY=$RSYNC_KEY
 if [ -z "$RSYNC_KEY" ]; then
     if [ -z "$PLUGIN_KEY" ]; then
